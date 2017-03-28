@@ -63,7 +63,11 @@ def processRequest():
 
     # Request directions via public transit
     now = datetime.now()
-    directions_result = gmaps.directions("Jurong point., singapore",
+
+    print("now:"+now)
+    sys.stdout.flush()
+
+    directions_result = gmaps.directions("Jurong point, singapore",
                                          "City Hall, singapore",
                                          mode="transit",
                                          departure_time=now)
