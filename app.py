@@ -44,11 +44,10 @@ def processRequest():
     print("2222:")
     sys.stdout.flush()
 
-    url = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
+    url = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc&directions/json?%s' % urlencode((
             ('origin', 'jurong west central 3, singapore'),
             ('destination', 'city hall mrt, singapore'),
-            ('mode', 'transit')
- ))
+            ('mode', 'transit')))
 
     googleResponse = urllib.urlopen(url)
     jsonResponse = json.loads(googleResponse.read())
