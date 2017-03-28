@@ -44,7 +44,7 @@ def processRequest():
     print("2222:")
     sys.stdout.flush()
 
-    gmaps = googlemaps.Client(key='BcCt1La2wA-WFYXZ89XbBgYx')
+    gmaps = googlemaps.Client(client_id='658313866490-kl4vh0hl2q9s97bghljfs1ot0qqchc97.apps.googleusercontent.com', client_secret='BcCt1La2wA-WFYXZ89XbBgYx')
 
     print("3333:")
     sys.stdout.flush()
