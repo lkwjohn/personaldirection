@@ -20,7 +20,7 @@ from flask import make_response
 
 # Flask app should start in global layout
 app = Flask(__name__)
-
+ 
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
