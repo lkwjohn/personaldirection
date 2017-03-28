@@ -50,7 +50,7 @@ def processRequest():
     sys.stdout.flush()
 
 
-    result = make()
+    make()
 
     print("66666:")
     sys.stdout.flush()
@@ -62,11 +62,29 @@ def processRequest():
     return res
 
 def make():
-    directions_result = gmaps.directions("Jurong point, singapore",
-                                         "City Hall, singapore",
-                                         mode="transit")
+    url = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
+            ('origin', 'jurong west central 3, singapore'),
+            ('destination', 'city hall mrt, singapore'),
+            ('mode', 'transit')
+            ))
 
-    return directions_result
+    googleResponse = urllib.urlopen(url)
+    jsonResponse = json.loads(googleResponse.read())
+
+    speech = ''
+    for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
+        j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions']   
+        speech += j + " "
+
+    print(speech)
+    sys.stdout.flush()
+
+
+    # directions_result = gmaps.directions("Jurong point, singapore",
+    #                                      "City Hall, singapore",
+    #                                      mode="transit")
+
+    # return directions_result
 
 
 def makeTranslateQuery(req):
