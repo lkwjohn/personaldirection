@@ -38,10 +38,8 @@ def webhook():
     return r
 
 
-@app.route('/')
+@app.route('/processRequest', methods=['GET'])
 def processRequest():
-    if req.get("result").get("action") != "get_direction":
-        return {}
 
     print("2222:")
     sys.stdout.flush()
