@@ -44,40 +44,34 @@ def processRequest():
     print("2222:")
     sys.stdout.flush()
 
-    gmaps = googlemaps.Client(key='AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc')
+    url = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
+            ('origin', 'jurong west central 3, singapore'),
+            ('destination', 'city hall mrt, singapore'),
+            ('mode', 'transit')
+ ))
 
-    print("3333:")
-    sys.stdout.flush()
+    googleResponse = urllib.urlopen(url)
+    jsonResponse = json.loads(googleResponse.read())
+    pprint.pprint(jsonResponse)
 
-    # # Geocoding an address
-    # geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
+    speech = '';
 
-    # print("4444:")
-    # sys.stdout.flush()
-
-    # # Look up an address with reverse geocoding
-    # reverse_geocode_result = gmaps.reverse_geocode((40.714224, -73.961452))
-
-    # print("5555:")
-    # sys.stdout.flush()
-
-    # Request directions via public transit
-
-    directions_result = gmaps.directions("Jurong point, singapore",
-                                         "City Hall, singapore",
-                                         mode="transit")
-
-    print("66666:")
-    sys.stdout.flush()
-
-    res = makeWebhookResult(directions_result)
-    # print("666666:")
-    # sys.stdout.flush()
+    for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
+        j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
+        print j    
+        speech += j + " "    
 
     print("77777:")
-    print(res)
     sys.stdout.flush()
-    return res
+
+
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "google_map"
+    }
 
 
 def makeTranslateQuery(req):
@@ -88,26 +82,6 @@ def makeTranslateQuery(req):
         return None
 
     return japanese
-
-
-def makeWebhookResult(data):
-    data = json.load(data)
-
-    # print(json.dumps(item, indent=4))
-
-    speech = data['route']['leg'][0]['duration']
-
-    print("Response:" + data['route']['leg'][0]['duration'])
-    print(speech)
-    sys.stdout.flush()
-
-    return {
-        "speech": data,
-        "displayText": data,
-        # "data": data,
-        # "contextOut": [],
-        "source": "google_map"
-    }
 
 
 if __name__ == '__main__':
