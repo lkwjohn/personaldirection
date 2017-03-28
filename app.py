@@ -22,7 +22,7 @@ from datetime import datetime
 app = Flask(__name__)
  
 
-@app.route('/webhook', methods=['POST'])
+# @app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
@@ -38,7 +38,8 @@ def webhook():
     return r
 
 
-def processRequest(req):
+@app.route('/')
+def processRequest():
     if req.get("result").get("action") != "get_direction":
         return {}
 
