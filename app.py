@@ -49,22 +49,22 @@ def processRequest():
     print("3333:")
     sys.stdout.flush()
 
-    # Geocoding an address
-    geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
+    # # Geocoding an address
+    # geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
 
-    print("4444:")
-    sys.stdout.flush()
+    # print("4444:")
+    # sys.stdout.flush()
 
-    # Look up an address with reverse geocoding
-    reverse_geocode_result = gmaps.reverse_geocode((40.714224, -73.961452))
+    # # Look up an address with reverse geocoding
+    # reverse_geocode_result = gmaps.reverse_geocode((40.714224, -73.961452))
 
-    print("5555:")
-    sys.stdout.flush()
+    # print("5555:")
+    # sys.stdout.flush()
 
     # Request directions via public transit
     now = datetime.now()
-    directions_result = gmaps.directions("Sydney Town Hall",
-                                         "Parramatta, NSW",
+    directions_result = gmaps.directions("Jurong point., singapore",
+                                         "City Hall, singapore",
                                          mode="transit",
                                          departure_time=now)
 
