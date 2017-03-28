@@ -49,35 +49,24 @@ def processRequest():
     print("3333:")
     sys.stdout.flush()
 
-    # # Geocoding an address
-    # geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
 
-    # print("4444:")
-    # sys.stdout.flush()
-
-    # # Look up an address with reverse geocoding
-    # reverse_geocode_result = gmaps.reverse_geocode((40.714224, -73.961452))
-
-    # print("5555:")
-    # sys.stdout.flush()
-
-    # Request directions via public transit
-
-    directions_result = gmaps.directions("Jurong point, singapore",
-                                         "City Hall, singapore",
-                                         mode="transit")
+    result = make()
 
     print("66666:")
     sys.stdout.flush()
 
-    # res = makeWebhookResult(directions_result)
-    # print("666666:")
-    # sys.stdout.flush()
 
     print("77777:")
     print(res)
     sys.stdout.flush()
     return res
+
+def make():
+    directions_result = gmaps.directions("Jurong point, singapore",
+                                         "City Hall, singapore",
+                                         mode="transit")
+
+    return directions_result
 
 
 def makeTranslateQuery(req):
