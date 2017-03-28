@@ -70,26 +70,6 @@ def processRequest():
     print("66666:")
     sys.stdout.flush()
 
-
-    # baseurl = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc&source=jp&target=en&"
-    # translate_query = makeTranslateQuery(req)
-
-    # print("2222:")
-    # sys.stdout.flush()
-    # if translate_query is None:
-    #     return {}
-    # yql_url = baseurl + urlencode({'q': translate_query}) 
-
-    # print("333333:")
-    # sys.stdout.flush()
-    # result = urlopen(yql_url).read()
-
-    # print("444444:")
-    # sys.stdout.flush()
-    # data = json.loads(result)
-
-    # print("55555:")
-    # sys.stdout.flush()
     res = makeWebhookResult(directions_result)
     # print("666666:")
     # sys.stdout.flush()
