@@ -42,6 +42,9 @@ def processRequest(req):
     if req.get("result").get("action") != "get_direction":
         return {}
 
+    print("2222:")
+    sys.stdout.flush()
+
     gmaps = googlemaps.Client(key='AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc')
 
     # Geocoding an address
