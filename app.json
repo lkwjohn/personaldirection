@@ -1,0 +1,7 @@
+{
+  "name": "API.AI webhook for jap2eng",
+  "description": "API.AI webhook for jap2eng",
+  "repository": "https://github.com/lkwjohn/jap2eng.git",
+  "logo": "http://xvir.github.io/img/apiai.png",
+  "keywords": ["api.ai", "natural language"]
+}
