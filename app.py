@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
-from future.standard_library import install_aliases
-install_aliases()
+# from future.standard_library import install_aliases
+# install_aliases()
 
 from urllib.parse import urlparse, urlencode
 from urllib.request import urlopen, Request
@@ -44,7 +44,7 @@ def processRequest():
     print("2222:")
     sys.stdout.flush()
 
-    gmaps = googlemaps.Client(client_id='658313866490-kl4vh0hl2q9s97bghljfs1ot0qqchc97.apps.googleusercontent.com', client_secret='BcCt1La2wA-WFYXZ89XbBgYx')
+    gmaps = googlemaps.Client(key='AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc')
 
     print("3333:")
     sys.stdout.flush()
@@ -65,8 +65,7 @@ def processRequest():
 
     directions_result = gmaps.directions("Jurong point, singapore",
                                          "City Hall, singapore",
-                                         mode="transit",
-                                         departure_time="2017-01-01 00:00:00")
+                                         mode="transit")
 
     print("66666:")
     sys.stdout.flush()
