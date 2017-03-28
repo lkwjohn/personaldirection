@@ -11,12 +11,12 @@ from urllib.error import HTTPError
 import json
 import os
 import sys
-import pycurl
 import googlemaps
 
 from flask import Flask
 from flask import request
 from flask import make_response
+from datetime import datetime
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -42,6 +42,20 @@ def processRequest(req):
     if req.get("result").get("action") != "get_direction":
         return {}
 
+    gmaps = googlemaps.Client(key='AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc')
+
+    # Geocoding an address
+    geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
+
+    # Look up an address with reverse geocoding
+    reverse_geocode_result = gmaps.reverse_geocode((40.714224, -73.961452))
+
+    # Request directions via public transit
+    now = datetime.now()
+    directions_result = gmaps.directions("Sydney Town Hall",
+                                         "Parramatta, NSW",
+                                         mode="transit",
+                                         departure_time=now)
 
 
     # baseurl = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc&source=jp&target=en&"
@@ -63,7 +77,7 @@ def processRequest(req):
 
     # print("55555:")
     # sys.stdout.flush()
-    # res = makeWebhookResult(data)
+    res = makeWebhookResult(directions_result)
     # print("666666:")
     # sys.stdout.flush()
     return res
@@ -80,20 +94,20 @@ def makeTranslateQuery(req):
 
 
 def makeWebhookResult(data):
-    query = data.get('data')
-    if query is None:
-        # return {}
-        speech = "data is empty"
+    # query = data.get('data')
+    # if query is None:
+    #     # return {}
+    #     speech = "data is empty"
 
-    result = query.get('translations')
-    if result is None:
-        # return {}
-        speech = "translations is empty"
+    # result = query.get('translations')
+    # if result is None:
+    #     # return {}
+    #     speech = "translations is empty"
 
-    translatedText = result.get('translatedText')
-    if translatedText is None:
-        # return {}
-        speech = "translations text is empty"
+    # translatedText = result.get('translatedText')
+    # if translatedText is None:
+    #     # return {}
+    #     speech = "translations text is empty"
 
 
     # print(json.dumps(item, indent=4))
@@ -105,20 +119,12 @@ def makeWebhookResult(data):
     sys.stdout.flush()
 
     return {
-        "speech": speech,
-        "displayText": speech,
+        "speech": data,
+        "displayText": dat,
         # "data": data,
         # "contextOut": [],
-        "source": "translate_japanese"
+        "source": "google_map"
     }
-
-    # return Response::json([
-    #                 'speech'   => $speech,
-    #                 'displayText' => $speech,
-    #                 'data' => data,
-    #                 'contextOut' => [],
-    #                 'source' => "translate_japanese"
-    #         ], 200);
 
 
 if __name__ == '__main__':
