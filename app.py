@@ -38,7 +38,7 @@ def webhook():
     return r
 
 
-@app.route('/processRequest', methods=['GET'])
+@app.route('/', methods=['GET'])
 def processRequest():
 
     print("2222:")
