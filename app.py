@@ -57,8 +57,7 @@ def processRequest():
     speech = '';
 
     for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
-        j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
-        print j    
+        j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions']    
         speech += j + " "    
 
     print("77777:")
