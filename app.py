@@ -87,16 +87,15 @@ def processRequest(req):
 
     speech = ''
 
-    htmlExtractor = HTMLTextExtractor()
+    htmlExtractor = MLStripper()
 
     if(len(jsonResponse['routes']) > 0 and len(jsonResponse['routes'][0]['legs']) > 0):
         length =  len (jsonResponse['routes'][0]['legs'][0]['steps'])
         for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
             htmlExtractor.feed(j)
-            j = htmlExtractor.get_text()
+            j = htmlExtractor.get_data()
            
-            print("3333:" + str(i) + " " + str(length))
             sys.stdout.flush()
             if(i == 0):
                 speech += j + " "
@@ -124,6 +123,14 @@ def makeWebhookResult(data):
         "source": "google_map"
     }
 
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))

@@ -2,6 +2,9 @@
 # import json, urllib
 # from urllib import urlencode
 # import pprint
+# import HTMLTextExtractor
+
+# htmlExtractor = HTMLTextExtractor()
 
 # import googlemaps
 
