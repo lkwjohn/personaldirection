@@ -75,22 +75,17 @@ def processRequest(req):
     speech = ''
 
     if(len(jsonResponse['routes']) > 0 and len(jsonResponse['routes'][0]['legs']) > 0):
+        length =  len (jsonResponse['routes'][0]['legs'][0]['steps'])
         for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
-            step = i + 1  
-            if(step == 1):
-                step = str(step) + "st"
-            elif(step == 2):
-                step = str(step) + "nd"
-            elif(step == 3):
-                step = str(step) + "rd"
-            else:
-                step = str(step) + "th"
-
+           
             if(i == 0):
-                speech += step + " " + j
+                speech += j + " "
             else:
-                speech += step + " " + j + " ::next:: "
+                if(i != length):
+                    speech += j + " ::next:: "
+                else:
+                    speech += j
     else:
         speech = "I could not find any route from " + origin + " to " + destination
 
