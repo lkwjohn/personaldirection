@@ -69,6 +69,9 @@ def processRequest(req):
     jsonResponse = json.loads(googleResponse)
 
     speech = ''
+    print("222:" + jsonResponse)
+    sys.stdout.flush()
+
     for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
         j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions']   
         speech += j + " "
