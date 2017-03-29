@@ -44,6 +44,10 @@ def processRequest(data):
     print("2222:")
     sys.stdout.flush()
 
+
+    app.logger.addHandler(logging.StreamHandler(sys.stdout))
+    app.logger.setLevel(logging.ERROR)
+
     result = req.get("result")
     parameters = result.get("parameters")
     origin = parameters.get("origin")
@@ -60,11 +64,7 @@ def processRequest(data):
             ('mode', 'transit')
             ))
 
-
     googleResponse =  urlopen(baseurl).read()
-
-    app.logger.addHandler(logging.StreamHandler(sys.stdout))
-    app.logger.setLevel(logging.ERROR)
 
     jsonResponse = json.loads(googleResponse)
 
