@@ -74,11 +74,11 @@ def processRequest(req):
 
     speech = ''
 
-    if(len(jsonResponse['routes']) > 0 and len(jsonResponse['routes'][0]['legs']) > 0)
+    if(len(jsonResponse['routes']) > 0 and len(jsonResponse['routes'][0]['legs']) > 0):
         for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions']   
             speech += j + " "
-    else
+    else:
         speech = "I could not find any route from " + origin + " to " + destination
 
     print("3333:" + speech)
