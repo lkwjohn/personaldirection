@@ -89,13 +89,26 @@ def askTime(parameters):
 
         jsonResponse = json.loads(googleResponse)
 
-        second = 0
+        seconds = 0
 
         if(len(jsonResponse['routes']) > 0 and len(jsonResponse['routes'][0]['legs']) > 0):
             for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
-                second += jsonResponse['routes'][0]['legs'][0]['steps'][i]['duration']['value']
+                seconds += jsonResponse['routes'][0]['legs'][0]['steps'][i]['duration']['value']
 
-            total_time = str(datetime.timedelta(seconds=second))
+            m, s = divmod(seconds, 60)
+            h, m = divmod(m, 60)
+
+            total_time = ''
+
+            if h > 0:
+                total_time += h + " hours "
+
+            if m > 0:
+                total_time += m + " mintues "
+
+            total_time += s + " seconds"
+
+
             speech += "Total time by " + mode + " is " + total_time + ". "
             
 
