@@ -61,14 +61,14 @@ def processRequest(req):
     mode = parameters.get("transport_mode")
     transit_mode = parameters.get("transit_mode")
     if mode is None :
-        if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
+        if transit_mode is'bus' or transit_mode is 'train' or transit_mode is 'subway':
             mode = 'transit' #default
         else:
             return makeWebhookResult('How do you want to get there by?')
     
 
     if mode == 'transit':
-        if transit_mode is None or transit_mode == 'any':
+        if transit_mode is None or transit_mode is 'any':
             transit_mode = '' #any
 
 
