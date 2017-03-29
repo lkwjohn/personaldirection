@@ -66,12 +66,12 @@ def processRequest(req):
     print(origin + " " + destination + " " + mode)
     sys.stdout.flush()
 
-    baseurl = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
+    baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
             ('origin', origin + ", singapore"),
             ('destination', destination + ", singapore"),
             ('mode', mode),
             ('transit_mode', 'bus')
-            ))
+            )) 
 
     googleResponse =  urlopen(baseurl).read()
 
