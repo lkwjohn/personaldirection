@@ -59,8 +59,13 @@ def processRequest(req):
         return makeWebhookResult('Okay, i got where you are coming from, but where are you going to?')
 
     mode = parameters.get("transport_mode")
+    transit_mode = parameters.get("transit_mode")
     if mode is None:
         mode = 'transit' #default
+    else:
+        if transit_mode is None or transit_mode == 'any':
+            transit_mode = '' #any
+
 
 
     print(origin + " " + destination + " " + mode)
