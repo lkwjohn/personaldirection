@@ -84,10 +84,10 @@ def processRequest(req):
             if(i == 0):
                 speech += j + " "
             else:
-                if(i != length):
-                    speech += j + " ::next:: "
+                if(i == length - 1):
+                    speech += j #EOL
                 else:
-                    speech += j
+                    speech += j + " ::next:: "
     else:
         speech = "I could not find any route from " + origin + " to " + destination
 
