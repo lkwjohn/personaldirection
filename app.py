@@ -79,6 +79,8 @@ def processRequest(req):
         for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
            
+            print("3333:" + str(i) + " " + str(length))
+            sys.stdout.flush()
             if(i == 0):
                 speech += j + " "
             else:
