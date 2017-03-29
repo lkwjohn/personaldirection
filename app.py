@@ -86,7 +86,11 @@ def processRequest(req):
                 step = str(step) + "rd"
             else:
                 step = str(step) + "th"
-            speech += step + " " + j + " "
+
+            if(i == 0):
+                speech += step + " " + j
+            else:
+                speech += step + " " + j + " ::next:: "
     else:
         speech = "I could not find any route from " + origin + " to " + destination
 
