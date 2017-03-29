@@ -52,11 +52,11 @@ def processRequest(req):
     parameters = result.get("parameters")
     origin = parameters.get("origin")
     if origin is None:
-        return makeWebhookResult('Where are you coming from?')
+        return makeWebhookResult('Hmmm, you are coming from?')
 
     destination = parameters.get("destination")
     if destination is None:
-        return makeWebhookResult('Where are you going to?')
+        return makeWebhookResult('Okay, i got where you are coming from, but where are you going to?')
 
     baseurl = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
             ('origin', origin),
