@@ -101,12 +101,12 @@ def askTime(parameters):
             total_time = ''
 
             if h > 0:
-                total_time += h + " hours "
+                total_time += str(h) + " hours "
 
             if m > 0:
-                total_time += m + " mintues "
+                total_time += str(m) + " mintues "
 
-            total_time += s + " seconds"
+            total_time += str(s) + " seconds"
 
 
             speech += "Total time by " + mode + " is " + total_time + ". "
