@@ -68,7 +68,7 @@ def processRequest(req):
 
 
 
-    print(origin + " " + destination + " " + mode)
+    print(origin + " " + destination + " " + mode + " " + transit_mode)
     sys.stdout.flush()
 
     baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
