@@ -63,8 +63,8 @@ def processRequest(req):
     sys.stdout.flush()
 
     baseurl = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
-            ('origin', origin),
-            ('destination', destination),
+            ('origin', origin + ", singapore"),
+            ('destination', destination + ", singapore"),
             ('mode', 'transit')
             ))
 
