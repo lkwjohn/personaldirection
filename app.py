@@ -39,7 +39,7 @@ def webhook():
     return r
 
 
-def processRequest(data):
+def processRequest(req):
 
     print("2222:")
     sys.stdout.flush()
