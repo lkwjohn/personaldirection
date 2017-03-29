@@ -58,6 +58,10 @@ def processRequest(req):
     if destination is None:
         return makeWebhookResult('Okay, i got where you are coming from, but where are you going to?')
 
+    mode = parameters.get("transport_mode")
+    if mode is None:
+        mode = 'transit' #default
+
 
     print(origin + " " + destination)
     sys.stdout.flush()
@@ -65,7 +69,7 @@ def processRequest(req):
     baseurl = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
             ('origin', origin + ", singapore"),
             ('destination', destination + ", singapore"),
-            ('mode', 'transit')
+            ('mode', mode)
             ))
 
     googleResponse =  urlopen(baseurl).read()
