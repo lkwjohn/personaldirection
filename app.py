@@ -105,6 +105,7 @@ def processRequest(req):
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
             htmlExtractor.feed(j)
             j = htmlExtractor.get_data()
+            j += " "
            
             sys.stdout.flush()
             if(i == 0):
