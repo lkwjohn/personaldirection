@@ -65,16 +65,18 @@ def processRequest(req):
 
     if mode is None :
         if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
+            print("111111111")
             mode = 'transit' #default
+            print("111111111:"+mode)
         else:
             return makeWebhookResult('How do you want to get there by?')
     elif mode == 'transit':
         if transit_mode is None or transit_mode == 'any':
+            print("22222222")
             transit_mode = '' #any
 
 
-
-    print(origin + " " + destination + " " + mode + " " + transit_mode)
+    print(origin + "| |" + destination + " |" + mode + "| |" + transit_mode)
     sys.stdout.flush()
 
     baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
