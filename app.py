@@ -75,7 +75,7 @@ def processRequest(req):
             ('origin', origin + ", singapore"),
             ('destination', destination + ", singapore"),
             ('mode', mode),
-            ('transit_mode', 'bus')
+            ('transit_mode', transit_mode)
             )) 
 
     googleResponse =  urlopen(baseurl).read()
