@@ -75,7 +75,7 @@ def askTime(parameters):
         mode = ''
         if i == 0:
             mode = 'driving'
-        else 
+        else:
             mode = 'transit'
 
 
