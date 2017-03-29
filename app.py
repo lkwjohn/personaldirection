@@ -91,6 +91,15 @@ def processRequest(req):
     htmlExtractor = MLStripper()
 
     if(len(jsonResponse['routes']) > 0 and len(jsonResponse['routes'][0]['legs']) > 0):
+        numberOfRoute = len(jsonResponse['routes']);
+
+        if numberOfRoute == 1:
+            speech = "There is 1 route found. "
+        elif numberOfRoute == 0:
+            return makeWebhookResult("There is no route found from " + origin + " to " + destination + " by " + mode)
+        else:
+            speech = "There are " + str(numberOfRoute) + " route found. "
+
         length =  len (jsonResponse['routes'][0]['legs'][0]['steps'])
         for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
