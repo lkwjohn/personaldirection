@@ -11,6 +11,7 @@ from urllib.error import HTTPError
 import json
 import os
 import sys
+import logging
 import googlemaps
 
 from flask import Flask
@@ -51,6 +52,10 @@ def processRequest(data):
 
 
     googleResponse =  urlopen(baseurl).read()
+
+    app.logger.addHandler(logging.StreamHandler(sys.stdout))
+    app.logger.setLevel(logging.ERROR)
+
     jsonResponse = json.loads(googleResponse)
 
     speech = ''
