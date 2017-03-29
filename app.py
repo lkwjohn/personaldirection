@@ -44,9 +44,19 @@ def processRequest(data):
     print("2222:")
     sys.stdout.flush()
 
+    result = req.get("result")
+    parameters = result.get("parameters")
+    origin = parameters.get("origin")
+    if origin is None:
+        return makeWebhookResult('Where are you coming from?')
+
+    destination = parameters.get("destination")
+    if destination is None:
+        return makeWebhookResult('Where are you going to?')
+
     baseurl = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
-            ('origin', 'jurong west central 3, singapore'),
-            ('destination', 'city hall mrt, singapore'),
+            ('origin', origin),
+            ('destination', destination),
             ('mode', 'transit')
             ))
 
@@ -66,39 +76,16 @@ def processRequest(data):
     print("3333:" + speech)
     sys.stdout.flush()
     
-    return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
-        "source": "google_map"
-    }
+    return makeWebhookResult(speech)
 
 
-
-def makeTranslateQuery(req):
-    result = req.get("result")
-    parameters = result.get("parameters")
-    japanese = parameters.get("japanese")
-    if japanese is None:
-        return None
-
-    return japanese
 
 
 def makeWebhookResult(data):
 
-    speech = " test"
-
-    print("Response:")
-    print(speech)
-    sys.stdout.flush()
-
     return {
-        "speech": speech,
-        "displayText": speech,
-        # "data": data,
-        # "contextOut": [],
+        "speech": data,
+        "displayText": data,
         "source": "google_map"
     }
 
