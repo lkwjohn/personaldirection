@@ -63,7 +63,7 @@ def processRequest(req):
         mode = 'transit' #default
 
 
-    print(origin + " " + destination)
+    print(origin + " " + destination + " " + mode)
     sys.stdout.flush()
 
     baseurl = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
