@@ -65,7 +65,14 @@ def processRequest(data):
 
     print("3333:" + speech)
     sys.stdout.flush()
-    return res
+    
+    return {
+        "speech": speech,
+        "displayText": speech,
+        # "data": data,
+        # "contextOut": [],
+        "source": "google_map"
+    }
 
 
 
