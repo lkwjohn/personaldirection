@@ -79,13 +79,13 @@ def processRequest(req):
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
             step = i + 1  
             if(step == 1):
-                step += "st"
+                `step` += "st"
             elif(step == 2):
-                step += "nd"
+                `step` += "nd"
             elif(step == 3):
-                step += "rd"
+                `step` += "rd"
             else:
-                step += "th"
+                `step` += "th"
             speech += step + " " + j + " "
     else:
         speech = "I could not find any route from " + origin + " to " + destination
