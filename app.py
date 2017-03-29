@@ -67,7 +67,7 @@ def processRequest(req):
             return makeWebhookResult('How do you want to get there by?')
     
     print(">>>> : " + transit_mode)
-    if mode == 'transit':
+    elif mode == 'transit':
         if transit_mode is None or transit_mode == 'any':
             transit_mode = '' #any
 
