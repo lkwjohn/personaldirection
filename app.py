@@ -69,7 +69,7 @@ def processRequest(req):
     baseurl = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
             ('origin', origin + ", singapore"),
             ('destination', destination + ", singapore"),
-            ('mode', mode)
+            ('mode', mode),
             ('transit_mode', mode)
             ))
 
