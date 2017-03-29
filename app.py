@@ -22,7 +22,7 @@ from datetime import datetime
 app = Flask(__name__)
  
 
-# @app.route('/webhook', methods=['POST'])
+@app.route('/webhook', methods=['GET', 'POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
@@ -38,53 +38,30 @@ def webhook():
     return r
 
 
-@app.route('/', methods=['GET', 'POST'])
-def processRequest():
+def processRequest(data):
 
     print("2222:")
     sys.stdout.flush()
 
-    gmaps = googlemaps.Client(key='AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc')
-
-    print("3333:")
-    sys.stdout.flush()
-
-
-    make()
-
-    print("66666:")
-    sys.stdout.flush()
-
-
-    print("77777:")
-    print(res)
-    sys.stdout.flush()
-    return res
-
-def make():
-    url = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
+    baseurl = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
             ('origin', 'jurong west central 3, singapore'),
             ('destination', 'city hall mrt, singapore'),
             ('mode', 'transit')
             ))
 
-    googleResponse = urllib.urlopen(url)
-    jsonResponse = json.loads(googleResponse.read())
+
+    googleResponse =  urlopen(baseurl).read()
+    jsonResponse = json.loads(googleResponse)
 
     speech = ''
     for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
         j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions']   
         speech += j + " "
 
-    print(speech)
+    print("3333:" + speech)
     sys.stdout.flush()
+    return res
 
-
-    # directions_result = gmaps.directions("Jurong point, singapore",
-    #                                      "City Hall, singapore",
-    #                                      mode="transit")
-
-    # return directions_result
 
 
 def makeTranslateQuery(req):
