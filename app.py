@@ -80,9 +80,9 @@ def processRequest(req):
             step = i + 1  
             if(step == 1):
                 step += "st"
-            else if(step == 2):
+            elif(step == 2):
                 step += "nd"
-            else if(step == 3):
+            elif(step == 3):
                 step += "rd"
             else:
                 step += "th"
