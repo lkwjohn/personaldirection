@@ -58,6 +58,10 @@ def processRequest(req):
     if destination is None:
         return makeWebhookResult('Okay, i got where you are coming from, but where are you going to?')
 
+
+    print(origin + " " + destination)
+    sys.stdout.flush()
+
     baseurl = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
             ('origin', origin),
             ('destination', destination),
@@ -69,12 +73,13 @@ def processRequest(req):
     jsonResponse = json.loads(googleResponse)
 
     speech = ''
-    print("222:" + jsonResponse)
-    sys.stdout.flush()
 
-    for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
-        j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions']   
-        speech += j + " "
+    if(len(jsonResponse['routes']) > 0 && len(jsonResponse['routes'][0]['legs']) > 0)
+        for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
+            j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions']   
+            speech += j + " "
+    else
+        speech = "I could not find any route from " + origin + " to " + destination
 
     print("3333:" + speech)
     sys.stdout.flush()
