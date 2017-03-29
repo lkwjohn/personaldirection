@@ -42,15 +42,70 @@ def webhook():
 
 def processRequest(req):
 
-    print("2222:")
-    sys.stdout.flush()
-
-
     app.logger.addHandler(logging.StreamHandler(sys.stdout))
     app.logger.setLevel(logging.ERROR)
 
+
+
     result = req.get("result")
+    action = result.get("action")
     parameters = result.get("parameters")
+
+    if action == 'ask_direction':
+        return askDirection(parameters)
+    elif action == 'ask_travel_time':
+        return askTime(parameters)
+
+
+    
+    
+    
+
+def askTime(parameters):
+    origin = parameters.get("origin")
+    if origin is None:
+        return makeWebhookResult('Hmmm, you are coming from?')
+
+    destination = parameters.get("destination")
+    if destination is None:
+        return makeWebhookResult('Okay, i got where you are coming from, but where are you going to?')
+
+    speech = ''
+    for i in range (0,2):
+        mode = ''
+        if i == 0:
+            mode = 'driving'
+        else 
+            mode = 'transit'
+
+
+        baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
+                ('origin', origin + ", singapore"),
+                ('destination', destination + ", singapore"),
+                ('mode', mode)
+                )) 
+
+        googleResponse =  urlopen(baseurl).read()
+
+        jsonResponse = json.loads(googleResponse)
+
+        second = 0
+
+        if(len(jsonResponse['routes']) > 0 and len(jsonResponse['routes'][0]['legs']) > 0):
+            for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
+                second += jsonResponse['routes'][0]['legs'][0]['steps'][i]['duration']['value']
+
+            total_time = str(datetime.timedelta(seconds=second))
+            speech += "Total time by " + mode + " is " + total_time + ". "
+            
+
+    
+    return makeWebhookResult(speech)
+
+
+
+def askDirection(parameters):
+    
     origin = parameters.get("origin")
     if origin is None:
         return makeWebhookResult('Hmmm, you are coming from?')
@@ -66,7 +121,7 @@ def processRequest(req):
         if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
             mode = 'transit' #default
         else:
-            return makeWebhookResult('How do you want to get there by?')
+            return makeWebhookResult('How do you want to get there by??')
     elif mode == 'transit':
         if transit_mode is None or transit_mode == 'any':
             transit_mode = '' #any
@@ -87,6 +142,7 @@ def processRequest(req):
     jsonResponse = json.loads(googleResponse)
 
     speech = ''
+    second = 0
 
     htmlExtractor = MLStripper()
 
@@ -106,6 +162,8 @@ def processRequest(req):
             htmlExtractor.feed(j)
             j = htmlExtractor.get_data()
             j += " "
+
+            second += jsonResponse['routes'][0]['legs'][0]['steps'][i]['duration']['value']
            
             sys.stdout.flush()
             if(i == 0):
@@ -120,10 +178,8 @@ def processRequest(req):
 
     print("3333:" + speech)
     sys.stdout.flush()
-    
+
     return makeWebhookResult(speech)
-
-
 
 
 def makeWebhookResult(data):
