@@ -63,7 +63,7 @@ def processRequest(req):
 
     print(">>>> : " + transit_mode)
 
-    if mode is None :
+    if mode is None or mode == '':
         if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
             print("111111111")
             mode = 'transit' #default
@@ -76,7 +76,7 @@ def processRequest(req):
             transit_mode = '' #any
 
 
-    print(origin + "| |" + destination + " |" + mode + "| |" + transit_mode)
+    print(origin + "| |" + destination + "| |" + mode + "| |" + transit_mode)
     sys.stdout.flush()
 
     baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
