@@ -143,8 +143,8 @@ def askDirection(parameters):
     print(origin + "| |" + destination + "| >>>>>>>")
     sys.stdout.flush()
 
-    if (mode is None or mode == '') and (transit_mode is not None or transit_mode != ''):
-        print("| 33333333")
+    if mode is None  and transit_mode is not None :
+        print("Mode is null, transit aint")
         sys.stdout.flush()
         return makeWebhookQuestion(origin, destination)
     elif mode is None:
@@ -204,6 +204,7 @@ def askDirection(parameters):
     else:
         speech = "I could not find any route from " + origin + " to " + destination
 
+    print("url:" + baseurl)
     print("3333:" + speech)
     sys.stdout.flush()
 
