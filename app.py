@@ -119,6 +119,9 @@ def askTime(parameters):
 
 def askDirection(parameters):
     
+    print("1111111")
+    sys.stdout.flush()
+
     origin = parameters.get("origin")
     if origin is None:
         return makeWebhookResult('Hmmm, you are coming from?')
