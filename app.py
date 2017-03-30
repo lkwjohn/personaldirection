@@ -201,7 +201,7 @@ def makeWebhookQuestion(origin, destination):
     return {
         "speech": "How would you like to get there? By driving or public transport?",
         "displayText": "More input required",
-        "contextOut": [{"name":"ask_transport", "lifespan":3, "parameters":{"origin":origin, "destination":destination}}],
+        "followupEvent": {"name":"ask_transport",  "data":{"origin":origin, "destination":destination}},
         "source": "google_map"
     }
 
