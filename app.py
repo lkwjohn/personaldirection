@@ -51,12 +51,19 @@ def processRequest(req):
     action = result.get("action")
     parameters = result.get("parameters")
 
+    print("aaaaaa")
+    sys.stdout.flush()
     if action == 'ask_direction':
+        print("bbbbbb")
+        sys.stdout.flush()
         return askDirection(parameters)
     elif action == 'ask_travel_time':
+        print("cccccc")
+        sys.stdout.flush()
         return askTime(parameters)
 
-
+    print("dddddd")
+    sys.stdout.flush()
     
     
     
