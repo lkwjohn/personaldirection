@@ -131,13 +131,14 @@ def askDirection(parameters):
     transit_mode = parameters.get("transit_mode")
 
     if mode is None or mode == '':
-        if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
-            mode = 'transit' #default
-        else:
-            return makeWebhookResult('How do you want to get there by??')
-    elif mode == 'transit':
-        if transit_mode is None or transit_mode == 'any':
-            transit_mode = '' #any
+        return makeWebhookQuestion(origin, destination)
+    #     if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
+    #         mode = 'transit' #default
+    #     else:
+    #         return makeWebhookResult('How do you want to get there by??')
+    # elif mode == 'transit':
+    #     if transit_mode is None or transit_mode == 'any':
+    #         transit_mode = '' #any
 
 
     print(origin + "| |" + destination + "| |" + mode + "| |" + transit_mode)
@@ -194,12 +195,22 @@ def askDirection(parameters):
 
     return makeWebhookResult(speech)
 
+#if the user didn't provide the transport mode
+def makeWebhookQuestion(origin, destination):
+
+    return {
+        "speech": "How would you like to get there? By driving or public transport?",
+        "displayText": "More input required",
+        "contextOut": [{"name":"ask_transport", "lifespan":3, "parameters":{"origin":origin, "destination":destination}}],
+        "source": "google_map"
+    }
 
 def makeWebhookResult(data):
 
     return {
         "speech": data,
-        "displayText": data,
+        "displayText": "Here's the result",
+
         "source": "google_map"
     }
 
