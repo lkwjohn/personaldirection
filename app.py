@@ -220,7 +220,7 @@ def makeWebhookQuestion(origin, destination):
         "followupEvent": {
               "name": "ask_transport",
               "data": {
-                 "origin":origin, "destination":destination
+                 "origin": "" + origin, "destination": "" +destination
               }
            }
     }
