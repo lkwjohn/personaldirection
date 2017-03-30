@@ -207,11 +207,14 @@ def askDirection(parameters):
 def makeWebhookQuestion(origin, destination):
 
     return {
-        "speech": "How would you like to get there? By driving or public transport?",
-        "displayText": "More input required",
-        "followupEvent": {"name":"ask_transport_compose_follow_up",  "data":{"origin":origin, "destination":destination}},
-        "source": "google_map"
+        "followupEvent": {
+              "name": "ask_transport",
+              "data": {
+                 "origin":origin, "destination":destination
+              }
+           }
     }
+
 
 def makeWebhookResult(data):
 
