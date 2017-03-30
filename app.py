@@ -143,17 +143,13 @@ def askDirection(parameters):
     print(origin + "| |" + destination + "| 2222222")
     sys.stdout.flush()
 
-    if mode is None or mode == '':
+    if (mode is None or mode == '') and (transit_mode is not None or transit_mode != ''):
         print("| 33333333")
         sys.stdout.flush()
-        r = makeWebhookQuestion(origin, destination)
-        print(r)
-        sys.stdout.flush()
-        return r
-    #     if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
-    #         mode = 'transit' #default
-    #     else:
-    #         return makeWebhookResult('How do you want to get there by??')
+        return makeWebhookQuestion(origin, destination)
+    else:
+        if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
+            mode = 'transit' #default
     # elif mode == 'transit':
     #     if transit_mode is None or transit_mode == 'any':
     #         transit_mode = '' #any
@@ -220,7 +216,7 @@ def makeWebhookQuestion(origin, destination):
         "followupEvent": {
               "name": "ask_transport_event",
               "data": {
-                 "origin": "city hall" , "destination": "changi airport"
+                 "origin": origin , "destination": destination
               }
            }
     }
