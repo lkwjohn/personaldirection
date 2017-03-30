@@ -218,7 +218,7 @@ def makeWebhookQuestion(origin, destination):
 
     return {
         "followupEvent": {
-              "name": "ask_transport",
+              "name": "ask_transport_event",
               "data": {
                  "origin": "city hall" , "destination": "changi airport"
               }
