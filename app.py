@@ -130,7 +130,12 @@ def askDirection(parameters):
     mode = parameters.get("transport_mode")
     transit_mode = parameters.get("transit_mode")
 
+    print(origin + "| |" + destination + "| 2222222")
+    sys.stdout.flush()
+
     if mode is None or mode == '':
+        print("| 33333333")
+        sys.stdout.flush()
         return makeWebhookQuestion(origin, destination)
     #     if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
     #         mode = 'transit' #default
