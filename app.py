@@ -140,7 +140,7 @@ def askDirection(parameters):
     mode = parameters.get("transport_mode")
     transit_mode = parameters.get("transit_mode")
 
-    print(origin + "| |" + destination + "| 2222222")
+    print(origin + "| |" + destination + "| |"+mode+ "| |" + transit_mode + " >>>>>>>")
     sys.stdout.flush()
 
     if (mode is None or mode == '') and (transit_mode is not None or transit_mode != ''):
