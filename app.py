@@ -70,12 +70,7 @@ def processRequest(req):
 
 def askTime(parameters):
     origin = parameters.get("origin")
-    if origin is None:
-        return makeWebhookResult('Hmmm, you are coming from?')
-
     destination = parameters.get("destination")
-    if destination is None:
-        return makeWebhookResult('Okay, i got where you are coming from, but where are you going to?')
 
     speech = ''
     for i in range (0,2):
@@ -84,7 +79,6 @@ def askTime(parameters):
             mode = 'driving'
         else:
             mode = 'transit'
-
 
         baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
                 ('origin', origin + ", singapore"),
@@ -96,38 +90,14 @@ def askTime(parameters):
 
         jsonResponse = json.loads(googleResponse)
 
-        seconds = 0
-
-        if(len(jsonResponse['routes']) > 0 and len(jsonResponse['routes'][0]['legs']) > 0):
-            for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
-                seconds += jsonResponse['routes'][0]['legs'][0]['steps'][i]['duration']['value']
-
-            m, s = divmod(seconds, 60)
-            h, m = divmod(m, 60)
-
-            total_time = ''
-
-            if h > 0:
-                total_time += str(h) + " hours "
-
-            if m > 0:
-                total_time += str(m) + " mintues "
-
-            total_time += str(s) + " seconds"
-
-
-            speech += "Total time by " + mode + " is " + total_time + ". "
+        total_time = jsonResponse['routes'][0]['legs'][0]['duration']['text']
+        speech += "Total time by " + mode + " is " + total_time + ". "
             
-
-    
     return makeWebhookResult(speech)
 
 
 
 def askDirection(parameters):
-    
-    print("1111111")
-    sys.stdout.flush()
 
     origin = parameters.get("origin")
     if origin is None:
@@ -140,24 +110,11 @@ def askDirection(parameters):
     transport_mode  = parameters.get("transport")
     transit_mode    = parameters.get("transit_mode")
 
-    try:
-        print(origin + "| |" + destination + "| >>>>>>>|" + transit_mode + "|" + (transit_mode is None or transit_mode == ''))
-        sys.stdout.flush()
-    except:
-        pass
-
-    if (transport_mode is None or transport_mode == '') and (transit_mode is None or transit_mode == ''):
-        print("| 33333333")
-        sys.stdout.flush()
+    if (transport_mode is None or transport_mode == '') and (transit_mode is None or transit_mode == ''): #did not supply transport mode
         return makeWebhookQuestion(origin, destination)
     elif (transport_mode is None or transport_mode == '') and (transit_mode is not None or transit_mode != ''):
-        print("| 4444444")
-        sys.stdout.flush()
         if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
             transport_mode = 'transit' #default
-    # elif mode == 'transit':
-    #     if transit_mode is None or transit_mode == 'any':
-    #         transit_mode = '' #any
 
 
     print(origin + "| |" + destination + "| |" + transport_mode + "| |" + transit_mode)
@@ -187,21 +144,11 @@ def askDirection(parameters):
         distance_speech = "Total distance is " + distance + ". "
         speech = ""
 
-        # if numberOfRoute == 1:
-        #     speech = "There is 1 route found. "
-        # elif numberOfRoute == 0:
-        #     return makeWebhookResult("There is no route found from " + origin + " to " + destination + " by " + mode)
-        # else:
-            # speech = "There are " + str(numberOfRoute) + " route found. "
-
-        length =  len (jsonResponse['routes'][0]['legs'][0]['steps'])
-
+        length = len (jsonResponse['routes'][0]['legs'][0]['steps'])
+        #loop through the steps to get to the destination
         for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
-            j = ""
-            print("Steps: " + str(i) + " >>>> "  +j)
-            sys.stdout.flush()
+            j = "" #clear out
             
-
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
             htmlExtractor = MLStripper()
             htmlExtractor.feed(j)
@@ -214,9 +161,6 @@ def askDirection(parameters):
                     arrival_stop = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['arrival_stop']['name']
                     vehicle_type = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['vehicle']['name']
 
-                    print(j + " TYPE >>>>>>> " + vehicle_type)
-                    sys.stdout.flush()
-
                     if vehicle_type.lower() == 'bus':
                         transport = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['short_name']
                         j = "Board " + vehicle_type + " number " + transport + " from " + departure_stop + " to " + arrival_stop
@@ -225,20 +169,16 @@ def askDirection(parameters):
                         j = "Take "+ transport + " from " + departure_stop + " to " + arrival_stop
 
             except Exception as e: 
-                print(">>>>>>> " + str(e))
-                sys.stdout.flush()
-                pass 
+                pass #for driving/walking
 
             if(i == 0):
                 speech = j + " "
             else:
                 if(i == length - 1):
-                    speech = speech + " " +  j #EOL
+                    speech +=  j #EOL
                 else:
-                    speech = speech + " " + j + ". ::next:: "
+                    speech += j + ". Next, "
 
-            print("Step " + j)
-            sys.stdout.flush()
     else:
         speech = "I could not find any route from " + origin + " to " + destination
 
