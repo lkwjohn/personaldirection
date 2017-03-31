@@ -209,11 +209,13 @@ def askDirection(parameters):
                 else: #subway
                     method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['lines']['vehicle']['short_name']
                     j = j +  method
-            except Exception: 
-                pass 
+            except Exception as e: 
+                print(">>>>>>> " + e)
+                sys.stdout.flush()
+                # pass 
 
             if(i == 0):
-                speech += j + " "
+                speech = j + " "
             else:
                 if(i == length - 1):
                     speech += j #EOL
@@ -223,7 +225,6 @@ def askDirection(parameters):
         speech = "I could not find any route from " + origin + " to " + destination
 
     print("url:" + baseurl)
-    print("3333:" + speech)
     sys.stdout.flush()
 
     return makeWebhookResult(speech)
