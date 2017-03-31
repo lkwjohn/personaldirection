@@ -85,10 +85,14 @@ def askTime(parameters):
                 ('destination', destination + ", singapore"),
                 ('mode', mode)
                 )) 
-
+        print("zzzzzzz: " + baseurl)
+        sys.stdout.flush()
         googleResponse =  urlopen(baseurl).read()
 
         jsonResponse = json.loads(googleResponse)
+
+        print("xxxxxx")
+        sys.stdout.flush()
 
         total_time = jsonResponse['routes'][0]['legs'][0]['duration']['text']
         speech += "Total time by " + mode + " is " + total_time + ". "
