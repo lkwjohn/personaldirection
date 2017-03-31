@@ -172,7 +172,7 @@ def askDirection(parameters):
     speech = ''
     second = 0
 
-    htmlExtractor = MLStripper()
+    
 
     if(len(jsonResponse['routes']) > 0 and len(jsonResponse['routes'][0]['legs']) > 0):
         numberOfRoute = len(jsonResponse['routes']);
@@ -198,8 +198,9 @@ def askDirection(parameters):
             
 
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
-            # htmlExtractor.feed(j)
-            # j = htmlExtractor.get_data()
+            htmlExtractor = MLStripper()
+            htmlExtractor.feed(j)
+            j = htmlExtractor.get_data()
 
             try:
                 method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['travel_mode']
