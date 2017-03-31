@@ -179,7 +179,7 @@ def askDirection(parameters):
 
         #get total distance
         distance = jsonResponse['routes'][0]['legs'][0]['distance']
-        speech = "Total distance is " + distance + " "
+        speech = "Total distance is " + str(distance) + " "
 
         # if numberOfRoute == 1:
         #     speech = "There is 1 route found. "
