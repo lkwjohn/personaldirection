@@ -177,23 +177,40 @@ def askDirection(parameters):
     if(len(jsonResponse['routes']) > 0 and len(jsonResponse['routes'][0]['legs']) > 0):
         numberOfRoute = len(jsonResponse['routes']);
 
-        if numberOfRoute == 1:
-            speech = "There is 1 route found. "
-        elif numberOfRoute == 0:
-            return makeWebhookResult("There is no route found from " + origin + " to " + destination + " by " + mode)
-        else:
-            speech = "There are " + str(numberOfRoute) + " route found. "
+        #get total distance
+        distance = jsonResponse['routes'][0]['legs'][0]['distance']
+        speech = "Total distance is " + distance + " "
+
+        # if numberOfRoute == 1:
+        #     speech = "There is 1 route found. "
+        # elif numberOfRoute == 0:
+        #     return makeWebhookResult("There is no route found from " + origin + " to " + destination + " by " + mode)
+        # else:
+            # speech = "There are " + str(numberOfRoute) + " route found. "
 
         length =  len (jsonResponse['routes'][0]['legs'][0]['steps'])
+
         for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
+            print("Steps: " + str(i))
+            sys.stdout.flush()
+            j = ""
+
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
             htmlExtractor.feed(j)
             j = htmlExtractor.get_data()
             j += " "
 
-            second += jsonResponse['routes'][0]['legs'][0]['steps'][i]['duration']['value']
-           
-            sys.stdout.flush()
+            try:
+                method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['lines']['vehicle']['name']
+                if method == 'bus':
+                    method = method + " number " + jsonResponse['routes'][0]['legs'][0]['steps'][i]['lines']['vehicle']['short_name'] + " "
+                    j = string.replace("Bus","")
+                    j = "Take " + method + j
+                else: #subway
+                    method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['lines']['vehicle']['short_name']
+                    j = j +  method
+
+
             if(i == 0):
                 speech += j + " "
             else:
