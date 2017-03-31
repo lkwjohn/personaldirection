@@ -141,7 +141,7 @@ def askDirection(parameters):
     transit_mode    = parameters.get("transit_mode")
 
     try:
-        print(origin + "| |" + destination + "| >>>>>>>|" + transit_mode + "|")
+        print(origin + "| |" + destination + "| >>>>>>>|" + transit_mode + "|" + (transit_mode is None or transit_mode == ''))
         sys.stdout.flush()
     except:
         pass
