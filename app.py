@@ -137,31 +137,31 @@ def askDirection(parameters):
     if destination is None:
         return makeWebhookResult('Okay, i got where you are coming from, but where are you going to?')
 
-    mode = parameters.get("transport")
+    transport_mode = parameters.get("transport")
     transit_mode = parameters.get("transit_mode")
 
     print(origin + "| |" + destination + "| >>>>>>>")
     sys.stdout.flush()
 
-    if (mode is None or mode == '') and (transit_mode is not None or transit_mode != ''):
+    if (transport_mode is transport_mode or transport_mode == '') and (transit_mode is not None or transit_mode != ''):
         print("| 33333333")
         sys.stdout.flush()
         return makeWebhookQuestion(origin, destination)
-    elif mode is None:
+    elif transport_mode is None or transport_mode == '':
         if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
-            mode = 'transit' #default
+            transport_mode = 'transit' #default
     # elif mode == 'transit':
     #     if transit_mode is None or transit_mode == 'any':
     #         transit_mode = '' #any
 
 
-    print(origin + "| |" + destination + "| |" + mode + "| |" + transit_mode)
+    print(origin + "| |" + destination + "| |" + transport_mode + "| |" + transit_mode)
     sys.stdout.flush()
 
     baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
             ('origin', origin + ", singapore"),
             ('destination', destination + ", singapore"),
-            ('mode', mode),
+            ('mode', transport_mode),
             ('transit_mode', transit_mode)
             )) 
 
