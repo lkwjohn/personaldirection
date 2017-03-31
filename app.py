@@ -209,7 +209,8 @@ def askDirection(parameters):
                 else: #subway
                     method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['lines']['vehicle']['short_name']
                     j = j +  method
-
+            except Exception: 
+                pass 
 
             if(i == 0):
                 speech += j + " "
