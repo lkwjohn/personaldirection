@@ -217,7 +217,7 @@ def askDirection(parameters):
                     print(j + " TYPE >>>>>>> " + vehicle_type)
                     sys.stdout.flush()
 
-                    if vehicle_type == 'bus':
+                    if vehicle_type.lower() == 'bus':
                         transport = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['short_name']
                         j = "Board " + vehicle_type + " number " + transport + " from " + departure_stop + " to " + arrival_stop
                     else: #subway
