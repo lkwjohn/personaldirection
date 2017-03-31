@@ -58,7 +58,7 @@ KVSessionExtension(store, app)
 # Update client_secrets.json with your Google API project information.
 # Do not change this assignment.
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open('/app/client_secrets.json', 'r').read())['web']['client_id']
 SERVICE = build('plus', 'v1')
 
 
@@ -105,7 +105,7 @@ def connect():
 
   try:
     # Upgrade the authorization code into a credentials object
-    oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+    oauth_flow = flow_from_clientsecrets('/app/client_secrets.json', scope='')
     oauth_flow.redirect_uri = 'postmessage'
     credentials = oauth_flow.step2_exchange(code)
   except FlowExchangeError:
