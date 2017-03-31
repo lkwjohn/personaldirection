@@ -201,18 +201,22 @@ def askDirection(parameters):
             j += " "
 
             try:
-                method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['lines']['vehicle']['name']
-                if method == 'bus':
-                    method = method + " number " + jsonResponse['routes'][0]['legs'][0]['steps'][i]['lines']['vehicle']['short_name'] + " "
-                    j = string.replace("Bus","")
-                    j = "Take " + method + j
-                else: #subway
-                    method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['lines']['vehicle']['short_name']
-                    j = j +  method
+                method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['travel_mode']
+                if method == 'TRANSIT':
+                    departure_stop = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['departure_stop']['name']
+                    arrival_stop = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['arrival_stop']['name']
+                    transport = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['short_name']
+                    vehicle_type = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['vehicle']['name']
+
+                    if vehicle_type == 'bus':
+                        j = "Board " + vehicle_type " number " + transport + " from " departure_stop + " to " + arrival_stop
+                    else: #subway
+                        j = "Take "+ transport + " from " departure_stop + " to " + arrival_stop
+
             except Exception as e: 
                 print(">>>>>>> " + str(e))
                 sys.stdout.flush()
-                # pass 
+                pass 
 
             if(i == 0):
                 speech = j + " "
