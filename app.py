@@ -73,18 +73,34 @@ def askTime(parameters):
     destination = parameters.get("destination")
 
     speech = ''
-    for i in range (0,2):
+    for i in range (0,3):
         mode = ''
         if i == 0:
             mode = 'driving'
         else:
             mode = 'transit'
 
-        baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
-                ('origin', origin + ", singapore"),
-                ('destination', destination + ", singapore"),
-                ('mode', mode)
-                )) 
+        transit_mode = ''
+        if i == 1:
+            transit_mode = 'subway'
+        elif i == 2:
+            transit_mode = 'bus'
+
+
+        baseurl = ''
+        if mode == 'transit':
+            baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
+                    ('origin', origin + ", singapore"),
+                    ('destination', destination + ", singapore"),
+                    ('mode', mode),
+                    ('transit_mode', transit_mode)
+                    )) 
+        else:
+            baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
+                    ('origin', origin + ", singapore"),
+                    ('destination', destination + ", singapore"),
+                    ('mode', mode)
+                    )) 
         print("zzzzzzz: " + baseurl)
         sys.stdout.flush()
         googleResponse =  urlopen(baseurl).read()
@@ -95,7 +111,11 @@ def askTime(parameters):
         sys.stdout.flush()
 
         total_time = jsonResponse['routes'][0]['legs'][0]['duration']['text']
-        speech += "Total time by " + mode + " is " + total_time + ". "
+
+        if mode == 'transit':
+            speech += "Total time by public transport is " + total_time + ". "
+        else:
+            speech += "Total time by " + mode + " is " + total_time + ". "
             
     return makeWebhookResult(speech)
 
