@@ -137,17 +137,19 @@ def askDirection(parameters):
     if destination is None:
         return makeWebhookResult('Okay, i got where you are coming from, but where are you going to?')
 
-    transport_mode = parameters.get("transport")
-    transit_mode = parameters.get("transit_mode")
+    transport_mode  = parameters.get("transport")
+    transit_mode    = parameters.get("transit_mode")
 
     print(origin + "| |" + destination + "| >>>>>>>")
     sys.stdout.flush()
 
-    if (transport_mode is None or transport_mode == '') and (transit_mode is  None or transit_mode == ''):
+    if transport_mode is None and transit_mode is  None :
         print("| 33333333")
         sys.stdout.flush()
         return makeWebhookQuestion(origin, destination)
-    elif (transport_mode is None or transport_mode == '') and (transit_mode is not None or transit_mode != ''):
+    elif transport_mode is None and transit_mode is not None :
+        print("| 4444444")
+        sys.stdout.flush()
         if transit_mode == 'bus' or transit_mode == 'train' or transit_mode == 'subway':
             transport_mode = 'transit' #default
     # elif mode == 'transit':
