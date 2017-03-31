@@ -198,8 +198,8 @@ def askDirection(parameters):
             
 
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
-            htmlExtractor.feed(j)
-            j = htmlExtractor.get_data()
+            # htmlExtractor.feed(j)
+            # j = htmlExtractor.get_data()
 
             try:
                 method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['travel_mode']
