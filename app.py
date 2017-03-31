@@ -208,6 +208,9 @@ def askDirection(parameters):
                     arrival_stop = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['arrival_stop']['name']
                     vehicle_type = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['vehicle']['name']
 
+                    print(j + " TYPE >>>>>>> " + vehicle_type)
+                    sys.stdout.flush()
+
                     if vehicle_type == 'bus':
                         transport = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['short_name']
                         j = "Board " + vehicle_type + " number " + transport + " from " + departure_stop + " to " + arrival_stop
@@ -227,6 +230,9 @@ def askDirection(parameters):
                     speech = speech + " " +  j #EOL
                 else:
                     speech = speech + " " + j + ". ::next:: "
+
+            print("Step " + j)
+            sys.stdout.flush()
     else:
         speech = "I could not find any route from " + origin + " to " + destination
 
