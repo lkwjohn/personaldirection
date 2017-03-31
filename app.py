@@ -113,7 +113,7 @@ def askTime(parameters):
         total_time = jsonResponse['routes'][0]['legs'][0]['duration']['text']
 
         if mode == 'transit':
-            speech += "Total time by public transport is " + total_time + ". "
+            speech += "Total time by " + transit_mode + " is " + total_time + ". "
         else:
             speech += "Total time by " + mode + " is " + total_time + ". "
             
