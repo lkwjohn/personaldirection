@@ -143,7 +143,7 @@ def askDirection(parameters):
     print(origin + "| |" + destination + "| >>>>>>>")
     sys.stdout.flush()
 
-    if (transport_mode is transport_mode or transport_mode == '') and (transit_mode is not None or transit_mode != ''):
+    if (transport_mode is None or transport_mode == '') and (transit_mode is not None or transit_mode != ''):
         print("| 33333333")
         sys.stdout.flush()
         return makeWebhookQuestion(origin, destination)
