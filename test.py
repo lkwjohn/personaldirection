@@ -1,3 +1,10 @@
+# import apiai
+
+# ai = apiai.ApiAI('0d772234cd274979b32bbbb3da2af723')
+
+# permission = ai.SupportedPermissions.NAME;
+
+
 # import sys
 # import json, urllib
 # from urllib import urlencode

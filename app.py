@@ -45,27 +45,21 @@ def processRequest(req):
     app.logger.addHandler(logging.StreamHandler(sys.stdout))
     app.logger.setLevel(logging.ERROR)
 
-
-
     result = req.get("result")
     action = result.get("action")
     parameters = result.get("parameters")
 
-    print("aaaaaa")
-    sys.stdout.flush()
     if action == 'ask_direction':
-        print("bbbbbb")
+        print("Calling:ask_direction")
         sys.stdout.flush()
         return askDirection(parameters)
     elif action == 'ask_travel_time':
-        print("cccccc")
+        print("Calling:ask_travel_time")
         sys.stdout.flush()
         return askTime(parameters)
+    elif action == 'ask_location_permission':
+        ai = apiai.ApiAI('0d772234cd274979b32bbbb3da2af723')
 
-    print("dddddd")
-    sys.stdout.flush()
-    
-    
     
 
 def askTime(parameters):
@@ -101,14 +95,9 @@ def askTime(parameters):
                     ('destination', destination + ", singapore"),
                     ('mode', mode)
                     )) 
-        print("zzzzzzz: " + baseurl)
-        sys.stdout.flush()
         googleResponse =  urlopen(baseurl).read()
 
         jsonResponse = json.loads(googleResponse)
-
-        print("xxxxxx")
-        sys.stdout.flush()
 
         total_time = jsonResponse['routes'][0]['legs'][0]['duration']['text']
 
