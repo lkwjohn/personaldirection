@@ -179,7 +179,8 @@ def askDirection(parameters):
 
         #get total distance
         distance = jsonResponse['routes'][0]['legs'][0]['distance']['text']
-        speech = "Total distance is " + distance + " "
+        distance_speech = "Total distance is " + distance + ". "
+        speech = ""
 
         # if numberOfRoute == 1:
         #     speech = "There is 1 route found. "
@@ -191,26 +192,27 @@ def askDirection(parameters):
         length =  len (jsonResponse['routes'][0]['legs'][0]['steps'])
 
         for i in range (0, len (jsonResponse['routes'][0]['legs'][0]['steps'])):
-            print("Steps: " + str(i))
-            sys.stdout.flush()
             j = ""
+            print("Steps: " + str(i) + " >>>> "  +j)
+            sys.stdout.flush()
+            
 
             j = jsonResponse['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
             htmlExtractor.feed(j)
             j = htmlExtractor.get_data()
-            j += " "
 
             try:
                 method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['travel_mode']
                 if method == 'TRANSIT':
                     departure_stop = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['departure_stop']['name']
                     arrival_stop = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['arrival_stop']['name']
-                    transport = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['short_name']
                     vehicle_type = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['vehicle']['name']
 
                     if vehicle_type == 'bus':
+                        transport = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['short_name']
                         j = "Board " + vehicle_type + " number " + transport + " from " + departure_stop + " to " + arrival_stop
                     else: #subway
+                        transport = jsonResponse['routes'][0]['legs'][0]['steps'][i]['transit_details']['line']['name']
                         j = "Take "+ transport + " from " + departure_stop + " to " + arrival_stop
 
             except Exception as e: 
@@ -222,11 +224,13 @@ def askDirection(parameters):
                 speech = j + " "
             else:
                 if(i == length - 1):
-                    speech += j #EOL
+                    speech = speech + " " +  j #EOL
                 else:
-                    speech += j + " ::next:: "
+                    speech = speech + " " + j + ". ::next:: "
     else:
         speech = "I could not find any route from " + origin + " to " + destination
+
+    speech = distance_speech + speech
 
     print("url:" + baseurl)
     sys.stdout.flush()
