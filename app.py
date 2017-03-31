@@ -14,6 +14,7 @@ import os
 import sys
 import logging
 import googlemaps
+import signin
 
 from flask import Flask
 from flask import request
@@ -58,7 +59,7 @@ def processRequest(req):
         sys.stdout.flush()
         return askTime(parameters)
     elif action == 'ask_location_permission':
-        ai = apiai.ApiAI('0d772234cd274979b32bbbb3da2af723')
+        signin.index()
 
     
 
