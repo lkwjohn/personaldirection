@@ -178,8 +178,8 @@ def askDirection(parameters):
         numberOfRoute = len(jsonResponse['routes']);
 
         #get total distance
-        distance = jsonResponse['routes'][0]['legs'][0]['distance']
-        speech = "Total distance is " + str(distance) + " "
+        distance = jsonResponse['routes'][0]['legs'][0]['distance']['text']
+        speech = "Total distance is " + distance + " "
 
         # if numberOfRoute == 1:
         #     speech = "There is 1 route found. "
@@ -210,7 +210,7 @@ def askDirection(parameters):
                     method = jsonResponse['routes'][0]['legs'][0]['steps'][i]['lines']['vehicle']['short_name']
                     j = j +  method
             except Exception as e: 
-                print(">>>>>>> " + e)
+                print(">>>>>>> " + str(e))
                 sys.stdout.flush()
                 # pass 
 
