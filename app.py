@@ -49,7 +49,7 @@ def processRequest(req):
     req = json.dumps(req)
 
     url = 'http://54.254.142.244/google_home/index.php/home/services'
-    # payload = json.load(open("request.json"))
+    payload = json.load(req)
     headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
     r = requests.post(url, data=json.dumps(req), headers=headers)
     return makeWebhookResult(r)
