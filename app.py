@@ -52,7 +52,7 @@ def processRequest(req):
     # payload = json.load(open("request.json"))
     headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
     r = requests.post(url, data=json.dumps(req), headers=headers)
-    return makeWebhookResult(body)
+    return makeWebhookResult(r)
 
     # result = req.get("result")
     # action = result.get("action")
