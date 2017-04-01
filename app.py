@@ -58,7 +58,7 @@ def processRequest(req):
     print("......." +json.dumps(r))
     sys.stdout.flush()
 
-    return makeWebhookResult(r)
+    return makeWebhookResult(r.get("message"))
 
     # result = req.get("result")
     # action = result.get("action")
