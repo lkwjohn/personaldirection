@@ -55,7 +55,7 @@ def processRequest(req):
     r = requests.post(url, data=json_data, headers=headers).json()
 
 
-    print("......." +r)
+    print("......." +json.dumps(r))
     sys.stdout.flush()
 
     return makeWebhookResult(r)
