@@ -46,15 +46,19 @@ def processRequest(req):
     app.logger.addHandler(logging.StreamHandler(sys.stdout))
     app.logger.setLevel(logging.ERROR)
 
+    buffer = StringIO()
     c = pycurl.Curl()
     c.setopt(pycurl.URL, 'http://http://54.254.142.244/google_home/index.php/home/services')
     c.setopt(pycurl.HTTPHEADER, ['Accept: application/json'])
     c.setopt(pycurl.POST, 1)
     c.setopt(pycurl.POSTFIELDS, req)
     c.setopt(pycurl.VERBOSE, 1)
+    c.setopt(c.WRITEFUNCTION, buffer.write)
     c.perform()
-    print curl_agent.getinfo(pycurl.RESPONSE_CODE)
     c.close()
+
+    body = buffer.getvalue()#here we got the response data
+    return makeWebhookResult(body)
 
     # result = req.get("result")
     # action = result.get("action")
