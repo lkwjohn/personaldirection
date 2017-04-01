@@ -46,11 +46,12 @@ def processRequest(req):
     app.logger.addHandler(logging.StreamHandler(sys.stdout))
     app.logger.setLevel(logging.ERROR)
 
+    json_data = json.dumps(my_list)
 
     url = 'http://54.254.142.244/google_home/index.php/home/services'
     # payload = json.load(req)
     headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
-    r = requests.post(url, data=json.dumps(req), headers=headers)
+    r = requests.post(url, data=json.dumps(json_data), headers=headers)
     return makeWebhookResult(r)
 
     # result = req.get("result")
