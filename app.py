@@ -15,6 +15,7 @@ import sys
 import logging
 import googlemaps
 import pycurl
+import StringIO
 
 from flask import Flask
 from flask import request
@@ -48,7 +49,7 @@ def processRequest(req):
 
     req = json.dumps(req)
 
-    buffer = StringIO()
+    buffer = StringIO().StringIO()
     c = pycurl.Curl()
     c.setopt(pycurl.URL, 'http://http://54.254.142.244/google_home/index.php/home/services')
     c.setopt(pycurl.HTTPHEADER, ['Accept: application/json'])
