@@ -46,7 +46,7 @@ def processRequest(req):
     app.logger.addHandler(logging.StreamHandler(sys.stdout))
     app.logger.setLevel(logging.ERROR)
 
-    json_data = json.dumps(my_list)
+    json_data = json.dumps(req)
 
     url = 'http://54.254.142.244/google_home/index.php/home/services'
     # payload = json.load(req)
