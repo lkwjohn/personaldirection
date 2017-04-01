@@ -55,7 +55,7 @@ def processRequest(req):
     r = requests.post(url, data=json_data, headers=headers).json()
 
 
-    print("......." +.get("message"))
+    print("......." +r.get("message"))
     sys.stdout.flush()
 
     return r.get("message");
