@@ -14,7 +14,7 @@ import os
 import sys
 import logging
 import googlemaps
-import signin
+import pycurl
 
 from flask import Flask
 from flask import request
@@ -46,20 +46,30 @@ def processRequest(req):
     app.logger.addHandler(logging.StreamHandler(sys.stdout))
     app.logger.setLevel(logging.ERROR)
 
-    result = req.get("result")
-    action = result.get("action")
-    parameters = result.get("parameters")
+    c = pycurl.Curl()
+    c.setopt(pycurl.URL, 'http://http://54.254.142.244/google_home/index.php/home/services')
+    c.setopt(pycurl.HTTPHEADER, ['Accept: application/json'])
+    c.setopt(pycurl.POST, 1)
+    c.setopt(pycurl.POSTFIELDS, req)
+    c.setopt(pycurl.VERBOSE, 1)
+    c.perform()
+    print curl_agent.getinfo(pycurl.RESPONSE_CODE)
+    c.close()
 
-    if action == 'ask_direction':
-        print("Calling:ask_direction")
-        sys.stdout.flush()
-        return askDirection(parameters)
-    elif action == 'ask_travel_time':
-        print("Calling:ask_travel_time")
-        sys.stdout.flush()
-        return askTime(parameters)
-    elif action == 'ask_location_permission':
-        signin.index()
+    # result = req.get("result")
+    # action = result.get("action")
+    # parameters = result.get("parameters")
+
+    # if action == 'ask_direction':
+    #     print("Calling:ask_direction")
+    #     sys.stdout.flush()
+    #     return askDirection(parameters)
+    # elif action == 'ask_travel_time':
+    #     print("Calling:ask_travel_time")
+    #     sys.stdout.flush()
+    #     return askTime(parameters)
+    # elif action == 'ask_location_permission':
+    #     signin.index()
 
     
 
