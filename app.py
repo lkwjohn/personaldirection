@@ -14,8 +14,7 @@ import os
 import sys
 import logging
 import googlemaps
-import pycurl
-import StringIO
+import requests
 
 from flask import Flask
 from flask import request
@@ -49,17 +48,10 @@ def processRequest(req):
 
     req = json.dumps(req)
 
-    buffer = StringIO().StringIO()
-    c = pycurl.Curl()
-    c.setopt(pycurl.URL, 'http://http://54.254.142.244/google_home/index.php/home/services')
-    c.setopt(pycurl.HTTPHEADER, ['Accept: application/json'])
-    c.setopt(pycurl.POST, 1)
-    c.setopt(pycurl.POSTFIELDS, req)
-    c.setopt(c.WRITEFUNCTION, buffer.write)
-    c.perform()
-    c.close()
-
-    body = buffer.getvalue()#here we got the response data
+    url = 'http://54.254.142.244/google_home/index.php/home/services'
+    # payload = json.load(open("request.json"))
+    headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
+    r = requests.post(url, data=json.dumps(req), headers=headers)
     return makeWebhookResult(body)
 
     # result = req.get("result")
