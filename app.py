@@ -58,7 +58,7 @@ def processRequest(req):
     # print("......." +r.get("message"))
     # sys.stdout.flush()
     print("continue.....1")
-            sys.stdout.flush()
+    sys.stdout.flush()
 
     if r.get('status') == 'success':
         print("continue.....2")
