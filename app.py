@@ -60,7 +60,10 @@ def processRequest(req):
 
     if r.get('status') == 'success':
         if r.get('type') == 'fellowupEvent':
-            return makeWebhookQuestion(r.get('payload').get('data').get('origin'), r.get('payload').get('data').get('destination'))
+            return makeWebhookQuestion(
+                r.get('payload').get('data').get('eventName'),
+                r.get('payload').get('data').get('origin'), 
+                r.get('payload').get('data').get('destination'))
         else: #display result
             return makeWebhookResult(r.get('message'))
     return makeWebhookResult(r.get('message'))
@@ -223,11 +226,11 @@ def askDirection(parameters):
     return makeWebhookResult(speech)
 
 #if the user didn't provide the transport mode
-def makeWebhookQuestion(origin, destination):
+def makeWebhookQuestion(event, origin, destination):
 
     return {
         "followupEvent": {
-              "name": "ask_transport_event",
+              "name": event,
               "data": {
                  "origin": origin , "destination": destination
               }
