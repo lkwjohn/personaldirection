@@ -65,7 +65,7 @@ def processRequest(req):
                 r.get('payload').get('data').get('origin'), 
                 r.get('payload').get('data').get('destination'))
         elif r.get('type') == 'continue': #continue to ask, user might not have given all parameters yet
-            return makeWebhookContinue(r.get('message'), r.get('message'), '{}', r.get('payload'))
+            return makeWebhookContinue(r.get('message'), r.get('message'), r.get('payload'))
         else: #display result
             return makeWebhookResult(r.get('message'))
     return makeWebhookResult(r.get('message'))
@@ -249,13 +249,12 @@ def makeWebhookResult(speech):
         "source": "google_map"
     }
 
-def makeWebhookContinue(speech, displayText, data, context):
+def makeWebhookContinue(speech, displayText, context):
 
     return {
         "speech": speech,
         "displayText": displayText,
-        "data": data,
-        "context": context,
+        "context": [context],
         "source": "google_map"
     }
 
