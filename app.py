@@ -65,6 +65,8 @@ def processRequest(req):
                 r.get('payload').get('data').get('origin'), 
                 r.get('payload').get('data').get('destination'))
         elif r.get('type') == 'continue': #continue to ask, user might not have given all parameters yet
+            print("continue.....")
+            sys.stdout.flush()
             return makeWebhookContinue(r.get('message'), r.get('message'), r.get('payload'))
         else: #display result
             return makeWebhookResult(r.get('message'))
