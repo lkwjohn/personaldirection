@@ -61,7 +61,7 @@ def processRequest(req):
     if r.get('status') == 'success':
         if r.get('type') == 'fellowupEvent':
             return makeWebhookQuestion(
-                r.get('payload').get('data').get('eventName'),
+                r.get('payload').get('eventName'),
                 r.get('payload').get('data').get('origin'), 
                 r.get('payload').get('data').get('destination'))
         else: #display result
