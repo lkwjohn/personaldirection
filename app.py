@@ -58,7 +58,11 @@ def processRequest(req):
     # print("......." +r.get("message"))
     # sys.stdout.flush()
 
-    return r.get("message");
+    if r.get('status') == 'success':
+        if r.get('message') == 'fellowupEvent':
+            return makeWebhookQuestion(r.get('payload').get('data').get('origin'), r.get('payload').get('data').get('destination'))
+
+    # return r.get("message");
 
     # result = req.get("result")
     # action = result.get("action")
