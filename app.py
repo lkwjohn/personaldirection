@@ -57,9 +57,15 @@ def processRequest(req):
 
     # print("......." +r.get("message"))
     # sys.stdout.flush()
+    print("continue.....1")
+            sys.stdout.flush()
 
     if r.get('status') == 'success':
+        print("continue.....2")
+        sys.stdout.flush()
         if r.get('type') == 'fellowupEvent':
+            print("continue.....3")
+            sys.stdout.flush()
             return makeWebhookQuestion(
                 r.get('payload').get('eventName'),
                 r.get('payload').get('data').get('origin'), 
@@ -69,7 +75,11 @@ def processRequest(req):
             sys.stdout.flush()
             return makeWebhookContinue(r.get('message'), r.get('message'), r.get('payload'))
         else: #display result
+            print("continue.....4")
+            sys.stdout.flush()
             return makeWebhookResult(r.get('message'))
+    print("continue.....5")
+    sys.stdout.flush()
     return makeWebhookResult(r.get('message'))
 
     # result = req.get("result")
