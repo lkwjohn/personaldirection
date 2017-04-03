@@ -33,7 +33,7 @@ def webhook():
     print(json.dumps(req, indent=4))
 
     res = processRequest(req)
-
+    print(res)
     res = json.dumps(res, indent=4)
     print(res)
     r = make_response(res)
@@ -266,7 +266,7 @@ def makeWebhookContinue(speech, displayText, context):
     return {
         "speech": speech,
         "displayText": displayText,
-        "contextOut": [{"name":"ask_direction_compose", "lifespan":2, "parameters":{"origin":"Rome"}}],
+        "contextOut": '[{"name":"ask_direction_compose", "lifespan":2, "parameters":{"origin":"Rome"}}]',
         "source": "google_map"
     }
 
