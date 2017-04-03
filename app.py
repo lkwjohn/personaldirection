@@ -266,7 +266,7 @@ def makeWebhookContinue(speech, displayText, context):
     return {
         "speech": speech,
         "displayText": displayText,
-        "contextOut": '[{"name":"ask_direction_compose", "lifespan":2, "parameters":{"origin":"Rome"}}]',
+        "contextOut":  [context],
         "source": "google_map"
     }
 
