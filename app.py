@@ -121,15 +121,15 @@ def askTime(parameters):
         baseurl = ''
         if mode == 'transit':
             baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
-                    ('origin', origin + ", singapore"),
-                    ('destination', destination + ", singapore"),
+                    ('origin', origin["address"] ),
+                    ('destination', destination["address"]),
                     ('mode', mode),
                     ('transit_mode', transit_mode)
                     )) 
         else:
             baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
-                    ('origin', origin + ", singapore"),
-                    ('destination', destination + ", singapore"),
+                    ('origin', origin ),
+                    ('destination', destination ),
                     ('mode', mode)
                     )) 
         googleResponse =  urlopen(baseurl).read()
