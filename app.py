@@ -121,8 +121,8 @@ def askTime(parameters):
         baseurl = ''
         if mode == 'transit':
             baseurl = 'https://maps.googleapis.com/maps/api/directions/json?%s&key=AIzaSyAhF49eTdOK088ldtFFkqEGt50FzWXSVoc' % urlencode((
-                    ('origin', origin["address"] ),
-                    ('destination', destination["address"]),
+                    ('origin', origin),
+                    ('destination', destination),
                     ('mode', mode),
                     ('transit_mode', transit_mode)
                     )) 
