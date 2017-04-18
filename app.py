@@ -49,7 +49,7 @@ def processRequest(req):
     json_data = json.dumps(req)
 
 
-    url = 'http://54.254.142.244/ai/index.php/services'
+    url = 'http://52.221.192.182/ai/index.php/services'
     # payload = json.load(req)
     headers = {'content-type': 'application/json', 'Accept-Charset': 'UTF-8'}
     r = requests.post(url, data=json_data, headers=headers).json()
